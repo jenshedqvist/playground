@@ -1,9 +1,13 @@
-
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
 
 body {
   font-family: Roboto, sans-serif;
+}
+
+img {
+  object-fit: contain;
 }
