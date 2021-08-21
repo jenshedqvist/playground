@@ -17,7 +17,7 @@ export function createSrcSet(
   return sizes
     .map(
       ([width, height]) =>
-        `http://placehold.it/${width}x${height}/?text=${fileName}%20(${width}x${height}) ${width}w`
+        `https://via.placeholder.com/${width}x${height}/?text=${fileName} ${width}w`
     )
     .join(",");
 }

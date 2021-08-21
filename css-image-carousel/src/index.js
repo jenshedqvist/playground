@@ -6,8 +6,25 @@ import Post from "./components/Post/Post";
 
 import "./index.css";
 
+// TODO: server render this
+window.initialState = {
+  items: [
+    { src: "zero", caption: "Mauris pharetra rhoncus euismod." },
+    {
+      src: "one",
+      caption: "Praesent aliquam, just id vestibulum iaculis.",
+    },
+    { src: "two", caption: "Cras vel velit ultricies." },
+    {
+      src: "three",
+      caption: "Vivamus euismod eros diam, ac hendrerit.",
+    },
+    { src: "four", caption: "Morbi sagittis feugiat commodo." },
+  ],
+};
+
 const app = choo();
-app.use(navigateSlides);
+app.use(stateHandler);
 app.route("/", mainView);
 app.mount("body");
 
@@ -33,21 +50,25 @@ function mainView(state, emit) {
         `)}
         ${Post.Aside(html`
           <h2>Latest photos</h2>
-          <button>Focus on photo ${state.currentSlide - 1}</button>
-          ${ImageCarousel([
-            { src: "one" },
-            { src: "two", active: true },
-            { src: "three" },
-          ])}
-          <button>Focus on photo ${state.currentSlide + 1}</button>
+
+          ${ImageCarousel({
+            items: state.items,
+            activeIndex: constrainNumber(
+              [0, state.items.length - 1],
+              state.activeSlide
+            ),
+            onClick: (index) => emit("setSlide", index),
+            onPrev: () => emit("prevSlide"),
+            onNext: () => emit("nextSlide"),
+          })}
         `)}
         ${Post.Prose(html`
           <p>
-            Praesent at porttitor turpis. Praesent consequat metus turpis,
-            scelerisque ultrices urna dapibus ac. Mauris pharetra rhoncus
-            euismod. Morbi fermentum tristique urna quis pretium. Nulla
-            facilisi. Quisque sit amet vulputate erat. Sed nisl lorem, dignissim
-            at vehicula et
+            Praesent at <a href="http://www.google.se">porttitor turpis</a>.
+            Praesent consequat metus turpis, scelerisque ultrices urna dapibus
+            ac. Mauris pharetra rhoncus euismod. Morbi fermentum tristique urna
+            quis pretium. Nulla facilisi. Quisque sit amet vulputate erat. Sed
+            nisl lorem, dignissim at vehicula et
           </p>
           <p>
             Aliquam pulvinar justo. Sed sit amet imperdiet nisl. Quisque ac ante
@@ -61,24 +82,29 @@ function mainView(state, emit) {
   `;
 }
 
-function navigateSlides(state, emitter) {
-  state.currentSlide = 0;
+function stateHandler(state, emitter) {
+  state.activeSlide = 0;
 
-  emitter.on("DOMContentLoaded", function (index) {
-    state.currentSlide = index;
-    console.log("LOADED");
-    //emitter.emit('render')
-  });
   emitter.on("setSlide", function (index) {
-    state.currentSlide = index;
+    state.activeSlide = constrainNumber([0, state.items.length - 1], index);
     emitter.emit("render");
   });
   emitter.on("nextSlide", function () {
-    state.currentSlide += 1;
+    emitter.emit("setSlide", (state.activeSlide += 1));
     emitter.emit("render");
   });
   emitter.on("prevSlide", function () {
-    state.currentSlide -= 1;
+    emitter.emit("setSlide", (state.activeSlide -= 1));
     emitter.emit("render");
   });
+  emitter.on("DOMContentLoaded", function () {
+    emitter.emit("setSlide", (state.activeSlide = 0));
+    emitter.emit("render");
+  });
+}
+
+function constrainNumber([min, max], num) {
+  if (num < min) return min;
+  if (num > max) return max;
+  return num;
 }

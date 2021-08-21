@@ -1,16 +1,39 @@
+:root {
+  --items-num: var(--ext-items-num);
+  --items-width: 33.33333333%;
+}
+
 .ImageCarousel {
+  overflow: hidden;
+}
+
+.ImageCarousel-list {
+  --focused-position: calc(
+    (var(--items-width) * (var(--ext-active-item-index) - 1)) * -1
+  );
+
   display: flex;
   align-items: center;
   list-style: none;
   padding: 0;
+  width: 100vw;
+  transform: translateX(var(--focused-position));
+  transition: transform 300ms cubic-bezier(0.35, 0.47, 0.04, 0.95);
+  padding-bottom: 1rem;
 }
 
 .ImageCarousel-item {
-  width: 33vw;
-  margin: 0 var(--actual-font-size);
+  min-width: var(--items-width);
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform 300ms cubic-bezier(0.05, 0.9, 0.69, 0.95);
 }
 
+/* TODO: try to use native focus state if possible */
+.ImageCarousel-item:not(.ImageCarousel-item--focus):hover {
+  transform: scale(1.05);
+}
 .ImageCarousel-item--focus {
-  width: 50vw;
-  box-shadow: 0 0 0 calc(var(--actual-font-size) / 2) red;
+  transform: scale(1.2);
+  z-index: 1;
 }
