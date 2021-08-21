@@ -37,3 +37,14 @@
   transform: scale(1.2);
   z-index: 1;
 }
+
+/* 
+  Users that prefer less animation
+  https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion
+*/
+@media (prefers-reduced-motion) {
+  .ImageCarousel-list,
+  .ImageCarousel-item {
+    transition: none;
+  }
+}
