@@ -1,4 +1,16 @@
 .ImageCarousel {
+  display: flex;
+  align-items: center;
   list-style: none;
   padding: 0;
+}
+
+.ImageCarousel-item {
+  width: 33vw;
+  margin: 0 var(--actual-font-size);
+}
+
+.ImageCarousel-item--focus {
+  width: 50vw;
+  box-shadow: 0 0 0 calc(var(--actual-font-size) / 2) red;
 }

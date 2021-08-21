@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/jenshedqvist/playground#readme",
   "dependencies": {
-    "choo": "^7.1.0"
+    "choo": "^7.1.0",
+    "classnames": "^2.3.1"
   },
   "devDependencies": {
     "css-loader": "^6.2.0",

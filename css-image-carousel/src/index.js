@@ -3,8 +3,6 @@ import choo from "choo";
 
 import ImageCarousel from "./components/ImageCarousel/ImageCarousel";
 import Post from "./components/Post/Post";
-import Figure from "./components/Figure/Figure";
-import Image, { createSrcSet } from "./components/Image/Image";
 
 import "./index.css";
 
@@ -37,9 +35,9 @@ function mainView(state, emit) {
           <h2>Latest photos</h2>
           <button>Focus on photo ${state.currentSlide - 1}</button>
           ${ImageCarousel([
-            Figure(Image(createSrcSet("one")), "caption for one"),
-            Figure(Image(createSrcSet("two")), "caption for two"),
-            Figure(Image(createSrcSet("three")), "caption for three"),
+            { src: "one" },
+            { src: "two", active: true },
+            { src: "three" },
           ])}
           <button>Focus on photo ${state.currentSlide + 1}</button>
         `)}
