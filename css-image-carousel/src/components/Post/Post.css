@@ -1,0 +1,49 @@
+:root {
+  --type-system-ratio: 1.33333;
+}
+
+.Post {
+  margin-top: 2rem;
+}
+
+.Post-aside {
+}
+
+.Post-prose {
+  max-width: calc(var(--actual-font-size) * 30);
+  margin: 0 auto;
+}
+
+/* Quick non leaky typography (: */
+
+.Post-prose h1 {
+  font-size: calc(
+    (
+      var(--actual-font-size) * var(--type-system-ratio) *
+        var(--type-system-ratio) * var(--type-system-ratio) *
+        var(--type-system-ratio)
+    )
+  );
+  margin: 1rem 0;
+}
+.Post-prose h2 {
+  font-size: calc(
+    var(--actual-font-size) * var(--type-system-ratio) *
+      var(--type-system-ratio) * var(--type-system-ratio)
+  );
+  margin: 1rem 0;
+}
+.Post-prose h3 {
+  font-size: calc(
+    var(--actual-font-size) * var(--type-system-ratio) *
+      var(--type-system-ratio)
+  );
+  font-weight: 700;
+  margin: 1rem 0;
+}
+.Post-prose h4 {
+  font-size: calc(var(--actual-font-size) * var(--type-system-ratio));
+  font-weight: 700;
+  color: #666;
+  margin: 0;
+}

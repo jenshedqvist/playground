@@ -1,3 +1,9 @@
+:root {
+  --base-font-scaling: 0.6vw;
+  --base-font-size: 0.88rem;
+  --actual-font-size: calc(var(--base-font-size) + var(--base-font-scaling));
+}
+
 html,
 body {
   margin: 0;
@@ -5,9 +11,7 @@ body {
 }
 
 body {
+  font-size: var(--actual-font-size);
+  line-height: 1.52;
   font-family: Roboto, sans-serif;
-}
-
-img {
-  object-fit: contain;
 }
