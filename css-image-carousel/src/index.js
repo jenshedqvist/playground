@@ -7,19 +7,45 @@ import Post from "./components/Post/Post";
 import "./index.css";
 
 // TODO: server render this
+const img1 = require("./assets/img1.jpg");
+const img2 = require("./assets/img2.jpg");
+const img3 = require("./assets/img3.jpg");
+const img4 = require("./assets/img4.jpg");
+const img5 = require("./assets/img5.jpg");
 window.initialState = {
   items: [
-    { src: "zero", caption: "Mauris pharetra rhoncus euismod." },
     {
-      src: "one",
+      img: {
+        ...img1,
+        alt: "Woman walking on street in eventing light in front of graffiti wall",
+      },
+      caption: "Mauris pharetra rhoncus euismod.",
+    },
+    {
+      img: {
+        ...img2,
+        alt: "Yoiung man chilling against wall with black and white wall painting",
+      },
       caption: "Praesent aliquam, just id vestibulum iaculis.",
     },
-    { src: "two", caption: "Cras vel velit ultricies." },
     {
-      src: "three",
+      img: {
+        ...img3,
+        alt: "Guy in shorts ordering night time takeout from a curb side restaurant",
+      },
+      caption: "Cras vel velit ultricies.",
+    },
+    {
+      img: { ...img4, alt: "Old vintage Renault" },
       caption: "Vivamus euismod eros diam, ac hendrerit.",
     },
-    { src: "four", caption: "Morbi sagittis feugiat commodo." },
+    {
+      img: {
+        ...img5,
+        alt: "Two colorfully dressed women with flowing hair walking away with their backs turned",
+      },
+      caption: "Morbi sagittis feugiat commodo.",
+    },
   ],
 };
 

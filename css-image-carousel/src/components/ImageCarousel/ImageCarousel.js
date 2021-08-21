@@ -1,7 +1,7 @@
 import html from "choo/html";
 import classNames from "classnames";
 import Figure from "../Figure/Figure";
-import Image, { createSrcSet } from "../Image/Image";
+import Image from "../Image/Image";
 import "./ImageCarousel.css";
 
 function ImageCarousel({ items, activeIndex, onClick, onPrev, onNext }) {
@@ -31,7 +31,7 @@ function ImageCarousel({ items, activeIndex, onClick, onPrev, onNext }) {
   </div>`;
 }
 
-function Item({ src, active, caption, index, onClick }) {
+function Item({ img, active, caption, index, onClick }) {
   return html`<li
     class="${classNames("ImageCarousel-item", {
       "ImageCarousel-item--focus": active,
@@ -40,7 +40,7 @@ function Item({ src, active, caption, index, onClick }) {
     style="--ext-item-index: ${index}"
     onclick="${(event) => onClick(index, event.target)}"
   >
-    ${Figure(Image(createSrcSet(src)), caption)}
+    ${Figure(Image(img), caption)}
   </li>`;
 }
 
