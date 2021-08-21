@@ -2,7 +2,7 @@ import html from "choo/html";
 import "./Image.css";
 
 export default function Image(srcs) {
-  return html` <img class="Media" srcset="${srcs}" src="${srcs[0]}" alt="#" />`;
+  return html` <img class="Image" srcset="${srcs}" src="${srcs[0]}" alt="#" />`;
 }
 
 export function createSrcSet(
