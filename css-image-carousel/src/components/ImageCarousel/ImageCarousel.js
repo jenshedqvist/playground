@@ -4,25 +4,21 @@ import Figure from "../Figure/Figure";
 import Image from "../Image/Image";
 import "./ImageCarousel.css";
 
-function ImageCarousel({ items, activeIndex, onClick, onPrev, onNext }) {
+function ImageCarousel({
+  items,
+  activeIndex,
+  onClick,
+  onPrev,
+  onNext,
+  onPlay,
+  onPause,
+}) {
   return html`<div
     class="ImageCarousel"
     style="--ext-items-num: ${items.length}; --ext-active-item-index: ${activeIndex}"
+    onmouseenter="${onPause}"
+    onmouseleave="${onPlay}"
   >
-    <button
-      onclick="${onPrev}"
-      aria-label="Focus on previous photo"
-      aria-controls="${`item-${activeIndex - 1}`}"
-    >
-      Prev
-    </button>
-    <button
-      onclick="${onNext}"
-      aria-label="Focus on next photo"
-      aria-controls="${`item-${activeIndex + 1}`}"
-    >
-      Next
-    </button>
     <ol class="ImageCarousel-list">
       ${items.map((item, index) =>
         Item({ onClick, index, active: index === activeIndex, ...item })

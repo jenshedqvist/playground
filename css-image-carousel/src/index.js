@@ -12,7 +12,12 @@ const img2 = require("./assets/img2.jpg");
 const img3 = require("./assets/img3.jpg");
 const img4 = require("./assets/img4.jpg");
 const img5 = require("./assets/img5.jpg");
+
 window.initialState = {
+  autoPlay: !userPrefersReducedMotion(),
+  isPlaying: false,
+  playbackSpeedMs: 6000,
+  autoPlayIntervalHandle: null,
   items: [
     {
       img: {
@@ -75,8 +80,6 @@ function mainView(state, emit) {
           </p>
         `)}
         ${Post.Aside(html`
-          <h2>Latest photos</h2>
-
           ${ImageCarousel({
             items: state.items,
             activeIndex: constrainNumber(
@@ -86,6 +89,8 @@ function mainView(state, emit) {
             onClick: (index) => emit("setSlide", index),
             onPrev: () => emit("prevSlide"),
             onNext: () => emit("nextSlide"),
+            onPlay: () => emit("play"),
+            onPause: () => emit("pause"),
           })}
         `)}
         ${Post.Prose(html`
@@ -112,25 +117,55 @@ function stateHandler(state, emitter) {
   state.activeSlide = 0;
 
   emitter.on("setSlide", function (index) {
-    state.activeSlide = constrainNumber([0, state.items.length - 1], index);
+    state.activeSlide = constrainNumber([0, state.items.length], index);
+    const lastItemNum = state.items.length;
+    if (state.isPlaying && state.activeSlide === lastItemNum) {
+      emitter.emit("setSlide", 0);
+    }
     emitter.emit("render");
   });
+
   emitter.on("nextSlide", function () {
     emitter.emit("setSlide", (state.activeSlide += 1));
     emitter.emit("render");
   });
+
   emitter.on("prevSlide", function () {
     emitter.emit("setSlide", (state.activeSlide -= 1));
     emitter.emit("render");
   });
+
+  emitter.on("play", function () {
+    if (userPrefersReducedMotion()) return;
+    state.isPlaying = true;
+    state.autoPlayIntervalHandle = setInterval(
+      () => emitter.emit("nextSlide"),
+      state.playbackSpeedMs
+    );
+    emitter.emit("render");
+  });
+
+  emitter.on("pause", function () {
+    clearInterval(state.autoPlayIntervalHandle);
+    emitter.emit("render");
+  });
+
   emitter.on("DOMContentLoaded", function () {
     emitter.emit("setSlide", (state.activeSlide = 0));
     emitter.emit("render");
+
+    if (state.autoPlay) {
+      emitter.emit("play");
+    }
   });
 }
 
+function userPrefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
 function constrainNumber([min, max], num) {
-  if (num < min) return min;
-  if (num > max) return max;
+  if (num <= min) return min;
+  if (num >= max) return max;
   return num;
 }
