@@ -1,12 +1,13 @@
 import html from "choo/html";
 import "./Image.css";
 
-export default function Image(responsiveImage) {
-  return html` <img
+const Image = ({ srcSet, src }) =>
+  html` <img
     class="Image"
-    srcset="${responsiveImage.srcSet}"
-    src="${responsiveImage.src}"
+    srcset="${srcSet}"
+    src="${src}"
     sizes="(min-width: 1024px) 1024px, 100vw"
     loading="lazy"
   />`;
-}
+
+export default Image;

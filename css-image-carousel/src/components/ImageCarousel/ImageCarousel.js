@@ -3,7 +3,7 @@ import classNames from "classnames";
 import Image from "../Image/Image";
 import "./ImageCarousel.css";
 
-function ImageCarousel({
+const ImageCarousel = ({
   uid,
   items,
   activeIndex,
@@ -11,8 +11,8 @@ function ImageCarousel({
   onSelect,
   onPlay,
   onPause,
-}) {
-  return html`<div
+}) =>
+  html`<div
     id="${uid}"
     class="ImageCarousel"
     style="--ext-items-num: ${items.length}; --ext-active-item-index: ${activeIndex};"
@@ -35,10 +35,9 @@ function ImageCarousel({
       )}
     </ol>
   </div>`;
-}
 
-function Item({ img, active, caption, index, onSelect, onPause }) {
-  return html`<li
+const Item = ({ img, active, caption, index, onSelect, onPause }) =>
+  html`<li
     class="${classNames("ImageCarousel-item", {
       "ImageCarousel-item--focus": active,
     })}"
@@ -48,19 +47,17 @@ function Item({ img, active, caption, index, onSelect, onPause }) {
     onfocus="${(event) => onSelect(index, event.target) && onPause()}"
     tabindex="0"
   >
-    ${Figure(Image(img), caption)}
+    ${Figure({ img: Image(img), caption })}
   </li>`;
-}
 
-function Figure(img, caption) {
-  return html` <figure>
+const Figure = ({ img, caption }) =>
+  html` <figure>
     ${img}
     ${caption &&
     html`<figcaption class="ImageCarousel-caption">${caption}</figcaption>`}
   </figure>`;
-}
 
-function PlayBackButton({ onPlay, onPause, isPlaying, uid }) {
+const PlayBackButton = ({ onPlay, onPause, isPlaying, uid }) => {
   const label = isPlaying ? "Pause auto play" : "Start auto play";
   const text = isPlaying ? "Pause" : "Play";
   return html` <button
@@ -96,7 +93,7 @@ function PlayBackButton({ onPlay, onPause, isPlaying, uid }) {
     </span>
     ${text}
   </button>`;
-}
+};
 
 ImageCarousel.Figure = Figure;
 ImageCarousel.Item = Item;

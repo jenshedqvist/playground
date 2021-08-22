@@ -95,8 +95,6 @@ function mainView(state, emit) {
             isPlaying: state.isPlaying,
             autoPlaySpeed: state.playbackSpeedMs,
             onSelect: (index) => emit("setSlide", index),
-            onPrev: () => emit("prevSlide"),
-            onNext: () => emit("nextSlide"),
             onPlay: () => emit("play"),
             onPause: () => emit("pause"),
           })}
@@ -132,50 +130,46 @@ function mainView(state, emit) {
 function stateHandler(state, emitter) {
   state.activeSlide = 0;
 
-  emitter.on("setSlide", function (index) {
-    state.activeSlide = constrainNumber([0, state.items.length], index);
-    const lastItemNum = state.items.length;
-    if (state.isPlaying && state.activeSlide === lastItemNum) {
-      emitter.emit("setSlide", 0);
-    }
-    emitter.emit("render");
-  });
+  emitter
+    .on("setSlide", function (index) {
+      state.activeSlide = constrainNumber([0, state.items.length], index);
+      const lastItemNum = state.items.length;
+      if (state.isPlaying && state.activeSlide === lastItemNum) {
+        emitter.emit("setSlide", 0);
+      }
+      emitter.emit("render");
+    })
+    .on("nextSlide", function () {
+      emitter.emit("setSlide", (state.activeSlide += 1));
+      emitter.emit("render");
+    })
+    .on("prevSlide", function () {
+      emitter.emit("setSlide", (state.activeSlide -= 1));
+      emitter.emit("render");
+    })
+    .on("play", function () {
+      if (userPrefersReducedMotion()) return;
+      state.isPlaying = true;
+      clearInterval(state.autoPlayIntervalHandle);
+      state.autoPlayIntervalHandle = setInterval(
+        () => emitter.emit("nextSlide"),
+        state.playbackSpeedMs
+      );
+      emitter.emit("render");
+    })
+    .on("pause", function () {
+      state.isPlaying = false;
+      clearInterval(state.autoPlayIntervalHandle);
+      emitter.emit("render");
+    })
+    .on("DOMContentLoaded", function () {
+      emitter.emit("setSlide", (state.activeSlide = 0));
+      emitter.emit("render");
 
-  emitter.on("nextSlide", function () {
-    emitter.emit("setSlide", (state.activeSlide += 1));
-    emitter.emit("render");
-  });
-
-  emitter.on("prevSlide", function () {
-    emitter.emit("setSlide", (state.activeSlide -= 1));
-    emitter.emit("render");
-  });
-
-  emitter.on("play", function () {
-    if (userPrefersReducedMotion()) return;
-    state.isPlaying = true;
-    clearInterval(state.autoPlayIntervalHandle);
-    state.autoPlayIntervalHandle = setInterval(
-      () => emitter.emit("nextSlide"),
-      state.playbackSpeedMs
-    );
-    emitter.emit("render");
-  });
-
-  emitter.on("pause", function () {
-    state.isPlaying = false;
-    clearInterval(state.autoPlayIntervalHandle);
-    emitter.emit("render");
-  });
-
-  emitter.on("DOMContentLoaded", function () {
-    emitter.emit("setSlide", (state.activeSlide = 0));
-    emitter.emit("render");
-
-    if (state.autoPlay) {
-      emitter.emit("play");
-    }
-  });
+      if (state.autoPlay) {
+        emitter.emit("play");
+      }
+    });
 }
 
 function userPrefersReducedMotion() {
