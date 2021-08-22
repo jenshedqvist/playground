@@ -7,7 +7,7 @@
 }
 
 .Post-aside {
-  margin: 2rem 0;
+  margin: var(--actual-font-size) 0;
 }
 
 .Post-prose {
@@ -18,33 +18,27 @@
 /* Quick non leaky typography (: */
 
 .Post-prose h1 {
-  font-size: calc(
-    (
-      var(--actual-font-size) * var(--type-system-ratio) *
-        var(--type-system-ratio) * var(--type-system-ratio) *
-        var(--type-system-ratio)
-    )
-  );
+  font-size: var(--type-level-xxl);
   margin: 1rem 0;
 }
 .Post-prose h2 {
-  font-size: calc(
-    var(--actual-font-size) * var(--type-system-ratio) *
-      var(--type-system-ratio) * var(--type-system-ratio)
-  );
+  font-size: var(--type-level-xl);
   margin: 1rem 0;
 }
 .Post-prose h3 {
-  font-size: calc(
-    var(--actual-font-size) * var(--type-system-ratio) *
-      var(--type-system-ratio)
-  );
+  font-size: var(--type-level-l);
   font-weight: 700;
   margin: 1rem 0;
 }
 .Post-prose h4 {
-  font-size: calc(var(--actual-font-size) * var(--type-system-ratio));
+  font-size: var(--type-level-m);
   font-weight: 700;
   color: #666;
   margin: 0;
+}
+.Post-prose h4 + p {
+  margin-top: 0;
+}
+.Post-prose small {
+  font-size: var(--type-level-s);
 }

@@ -4,6 +4,30 @@
   --actual-font-size: calc(var(--base-font-size) + var(--base-font-scaling));
   --theme-base-color: #222;
   --theme-interactive: rgb(19, 50, 190);
+
+  --type-system-ratio: 1.33333;
+  --type-level-xxl: calc(
+    (
+      var(--actual-font-size) * var(--type-system-ratio) *
+        var(--type-system-ratio) * var(--type-system-ratio) *
+        var(--type-system-ratio)
+    )
+  );
+  --type-level-xl: calc(
+    (
+      var(--actual-font-size) * var(--type-system-ratio) *
+        var(--type-system-ratio)
+    )
+  );
+  --type-level-l: calc((var(--actual-font-size) * var(--type-system-ratio)));
+  --type-level-m: var(--actual-font-size);
+  --type-level-s: calc((var(--actual-font-size) / var(--type-system-ratio)));
+  --type-level-xs: calc(
+    (
+      var(--actual-font-size) / var(--type-system-ratio) /
+        var(--type-system-ratio)
+    )
+  );
 }
 
 html,

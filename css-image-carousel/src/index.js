@@ -75,7 +75,11 @@ function mainView(state, emit) {
             porta dolor. Curabitur sed volutpat lectus. Praesent aliquam, justo
             id vestibulum iaculis, erat nunc lacinia turpis, non facilisis purus
             mi nec nisl.
-            <a href="http://www.google.se">Cras vel velit ultricies</a>, rhoncus
+          </p>
+          <h2>Hendrerit erat fi</h2>
+          <p>
+            Vivamus euismod
+            <a href="http://www.google.se">cras vel velit ultricies</a>, rhoncus
             lectus viverra, efficitur ligula. Vivamus euismod eros diam, ac
             hendrerit erat finibus a.
           </p>
@@ -102,12 +106,20 @@ function mainView(state, emit) {
             quis pretium. Nulla facilisi. Quisque sit amet vulputate erat. Sed
             nisl lorem, dignissim at vehicula et
           </p>
+          <h3>Hendrerit erat fi</h3>
           <p>
             Aliquam pulvinar justo. Sed sit amet imperdiet nisl. Quisque ac ante
             sit amet dolor venenatis ultricies. Cras interdum, felis sed commodo
             aliquam, sem metus facilisis dolor, condimentum condimentum elit
             nunc sit amet felis. Phasellus interdum mauris sed semper euismod.
           </p>
+          <h4>Hendrerit erat fi</h4>
+          <p>
+            Aliquam pulvinar justo. Sed sit amet imperdiet nisl. Quisque ac ante
+            sit amet dolor venenatis ultricies. Phasellus interdum mauris sed
+            semper euismod.
+          </p>
+          <small>Authored 2021-08-22 by Jens</small>
         `)}
       `)}
     </body>
