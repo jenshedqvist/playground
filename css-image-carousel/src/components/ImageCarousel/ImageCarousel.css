@@ -7,6 +7,9 @@
   --item--focused-scale: 1.5;
   --item-easing: cubic-bezier(0.02, 1.34, 0.98, 0.86);
 
+  --caption-font-size: var(--type-level-xs);
+  --carousel-vertical-spacing: 0;
+
   --layer-focused-item: 2;
   --layer-inspected-item: 1;
   --layer-control-btn: 3;
@@ -17,6 +20,8 @@
     --items-width: 27%;
     --item--focused-width: 46%;
     --item--focused-scale: 1.4;
+    --caption-font-size: var(--type-level-s);
+    --carousel-vertical-spacing: var(--actual-font-size);
   }
 }
 @media screen and (min-width: 800px) {
@@ -30,6 +35,7 @@
 .ImageCarousel {
   position: relative;
   overflow: hidden;
+  padding: var(--carousel-vertical-spacing) 0;
 }
 
 .ImageCarousel-list {
@@ -79,7 +85,7 @@
 }
 
 .ImageCarousel-item--focus .ImageCarousel-caption {
-  font-size: calc(var(--actual-font-size) / var(--type-system-ratio));
+  font-size: var(--caption-font-size);
   opacity: 1;
 }
 
