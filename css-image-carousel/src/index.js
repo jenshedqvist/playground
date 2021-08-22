@@ -86,11 +86,14 @@ function mainView(state, emit) {
         `)}
         ${Post.Aside(html`
           ${ImageCarousel({
+            uid: "carousel-1",
             items: state.items,
             activeIndex: constrainNumber(
               [0, state.items.length - 1],
               state.activeSlide
             ),
+            isPlaying: state.isPlaying,
+            autoPlaySpeed: state.playbackSpeedMs,
             onSelect: (index) => emit("setSlide", index),
             onPrev: () => emit("prevSlide"),
             onNext: () => emit("nextSlide"),
@@ -151,6 +154,7 @@ function stateHandler(state, emitter) {
   emitter.on("play", function () {
     if (userPrefersReducedMotion()) return;
     state.isPlaying = true;
+    clearInterval(state.autoPlayIntervalHandle);
     state.autoPlayIntervalHandle = setInterval(
       () => emitter.emit("nextSlide"),
       state.playbackSpeedMs
@@ -159,6 +163,7 @@ function stateHandler(state, emitter) {
   });
 
   emitter.on("pause", function () {
+    state.isPlaying = false;
     clearInterval(state.autoPlayIntervalHandle);
     emitter.emit("render");
   });
