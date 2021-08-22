@@ -7,7 +7,7 @@ import "./ImageCarousel.css";
 function ImageCarousel({
   items,
   activeIndex,
-  onClick,
+  onSelect,
   onPrev,
   onNext,
   onPlay,
@@ -21,20 +21,28 @@ function ImageCarousel({
   >
     <ol class="ImageCarousel-list">
       ${items.map((item, index) =>
-        Item({ onClick, index, active: index === activeIndex, ...item })
+        Item({
+          onSelect,
+          onPause,
+          index,
+          active: index === activeIndex,
+          ...item,
+        })
       )}
     </ol>
   </div>`;
 }
 
-function Item({ img, active, caption, index, onClick }) {
+function Item({ img, active, caption, index, onSelect, onPause }) {
   return html`<li
     class="${classNames("ImageCarousel-item", {
       "ImageCarousel-item--focus": active,
     })}"
     id="item-${index}"
     style="--ext-item-index: ${index}"
-    onclick="${(event) => onClick(index, event.target)}"
+    onclick="${(event) => onSelect(index, event.target)}"
+    onfocus="${(event) => onSelect(index, event.target) && onPause()}"
+    tabindex="0"
   >
     ${Figure(Image(img), caption)}
   </li>`;

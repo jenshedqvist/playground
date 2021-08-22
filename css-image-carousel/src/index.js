@@ -74,9 +74,10 @@ function mainView(state, emit) {
             Nullam condimentum sapien ex, et gravida quam rutrum id. Fusce at
             porta dolor. Curabitur sed volutpat lectus. Praesent aliquam, justo
             id vestibulum iaculis, erat nunc lacinia turpis, non facilisis purus
-            mi nec nisl. Cras vel velit ultricies, rhoncus lectus viverra,
-            efficitur ligula. Vivamus euismod eros diam, ac hendrerit erat
-            finibus a.
+            mi nec nisl.
+            <a href="http://www.google.se">Cras vel velit ultricies</a>, rhoncus
+            lectus viverra, efficitur ligula. Vivamus euismod eros diam, ac
+            hendrerit erat finibus a.
           </p>
         `)}
         ${Post.Aside(html`
@@ -86,7 +87,7 @@ function mainView(state, emit) {
               [0, state.items.length - 1],
               state.activeSlide
             ),
-            onClick: (index) => emit("setSlide", index),
+            onSelect: (index) => emit("setSlide", index),
             onPrev: () => emit("prevSlide"),
             onNext: () => emit("nextSlide"),
             onPlay: () => emit("play"),
