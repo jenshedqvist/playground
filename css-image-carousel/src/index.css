@@ -2,10 +2,13 @@
   --base-font-scaling: 0.6vw;
   --base-font-size: 0.88rem;
   --actual-font-size: calc(var(--base-font-size) + var(--base-font-scaling));
+  --theme-base-color: #222;
+  --theme-interactive: rgb(19, 50, 190);
 }
 
 html,
-body {
+body,
+figure {
   margin: 0;
   padding: 0;
 }
@@ -14,4 +17,25 @@ body {
   font-size: var(--actual-font-size);
   line-height: 1.52;
   font-family: Roboto, sans-serif;
+  color: var(--theme-base-color);
+}
+
+a {
+  color: var(--theme-interactive);
+}
+
+/**
+ * Provide emphasized focus styles for keyboard navigation
+ */
+:focus-visible {
+  outline: solid var(--focus-ring-width, 2px) !important;
+  outline-color: var(--focus-ring-color, red) !important;
+}
+
+/**
+ * Disable default focus styles for pointer events, when :focus-visible is
+ * supported by the browser
+ */
+:focus:not(:focus-visible) {
+  outline: 0 !important;
 }
