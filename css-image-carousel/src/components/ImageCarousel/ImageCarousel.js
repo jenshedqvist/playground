@@ -1,6 +1,5 @@
 import html from "choo/html";
 import classNames from "classnames";
-import Figure from "../Figure/Figure";
 import Image from "../Image/Image";
 import "./ImageCarousel.css";
 
@@ -48,5 +47,14 @@ function Item({ img, active, caption, index, onSelect, onPause }) {
   </li>`;
 }
 
+function Figure(img, caption) {
+  return html` <figure>
+    ${img}
+    ${caption &&
+    html`<figcaption class="ImageCarousel-caption">${caption}</figcaption>`}
+  </figure>`;
+}
+
+ImageCarousel.Figure = Figure;
 ImageCarousel.Item = Item;
 export default ImageCarousel;

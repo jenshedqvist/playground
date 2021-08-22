@@ -52,7 +52,7 @@
   transform: scale(1);
   transform-origin: center;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0);
-  opacity: 0.8;
+  /* opacity: 0.8; */
   transition: transform 300ms var(--item-easing),
     box-shadow 120ms var(--item-easing), opacity 120ms var(--item-easing);
 }
@@ -61,14 +61,26 @@
 .ImageCarousel-item:not(.ImageCarousel-item--focus):hover {
   transform: scale(1.02);
 }
+
 .ImageCarousel-item--focus {
   min-width: var(--item--focused-width);
   transform: scale(var(--item--focused-scale));
   z-index: var(--layer-focused-item);
-  opacity: 1;
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 1);
   transition-timing-function: cubic-bezier(0.14, 1.29, 0.95, 0.81);
   background: #fff;
+  outline: none;
+}
+
+.ImageCarousel-caption {
+  opacity: 0;
+  font-size: calc(var(--actual-font-size) / var(--type-system-ratio));
+  transition: opacity 300ms ease;
+}
+
+.ImageCarousel-item--focus .ImageCarousel-caption {
+  font-size: calc(var(--actual-font-size) / var(--type-system-ratio));
+  opacity: 1;
 }
 
 /* 

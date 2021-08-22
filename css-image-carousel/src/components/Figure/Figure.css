@@ -1,7 +1,0 @@
-.Figure {
-  margin: 0;
-}
-
-.Figure-caption {
-  font-size: calc(var(--actual-font-size) / var(--type-system-ratio));
-}
